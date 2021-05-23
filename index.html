@@ -112,7 +112,8 @@ body {
     $("#img").rotate({
             angle:0,
             bind:{
-              touchstart:function(){
+                touchmove:function(e){
+                 e.preventDefault()
                     $(this).rotate({
                         animateTo:-70
                     });
@@ -122,7 +123,8 @@ body {
                   interval = setInterval(function() { remind() }, 200);
                   interval2 = setInterval(function() { remind2() }, 200);
                 },
-                touchend:function(){
+                touchend:function(e){
+                  e.preventDefault()
                     $(this).rotate({
                         animateTo:0
                     });
