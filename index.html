@@ -2,8 +2,8 @@
 <html>
 	<head>
 		<title>倒酒练习</title>
-    <script type="text/javascript" src="../js/jquery.min.js"></script>
-    <script type="text/javascript" src="../js/jquery.rotate.min.js"></script>
+    <script type="text/javascript" src="./js/jquery.min.js"></script>
+    <script type="text/javascript" src="./js/jquery.rotate.min.js"></script>
     <audio id="music" autoplay="autoplay" loop="loop" preload="preload" src="img/bgm2.mp3"></audio>
 
 	</head>
@@ -112,8 +112,8 @@ body {
     $("#img").rotate({
             angle:0,
             bind:{
-                click:function(e){
-                 e.preventDefault()
+                touchmove:function(){
+                  console.log('over')
                     $(this).rotate({
                         animateTo:-70
                     });
@@ -123,8 +123,7 @@ body {
                   interval = setInterval(function() { remind() }, 200);
                   interval2 = setInterval(function() { remind2() }, 200);
                 },
-                touchend:function(e){
-                  e.preventDefault()
+                touchend:function(){
                     $(this).rotate({
                         animateTo:0
                     });
