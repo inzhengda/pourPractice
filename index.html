@@ -99,7 +99,7 @@ body {
       if(index<24){
       $("#glass").attr('src',animationsImg[index++]);}
       else{
-        pupopTip('400px','240px','挑战失败','再来一次');
+        pupopTip('480px','240px','挑战失败','再来一次');
         clear();
     }}
     let audio = document.getElementById("shuidi");
@@ -144,6 +144,7 @@ body {
                   e.preventDefault();
                   console.log(bottleRight)
                   if(bottleRight){
+                    $("#img").attr('src','./img/bottle3.png');
                     $(this).rotate({
                         animateTo:-85
                     });
@@ -159,8 +160,7 @@ body {
                   e.preventDefault();
                   audio.pause();
                   if(!bottleRight){
-                     pupopTip('400px','240px','酒标需要对准客人','旋转酒瓶');
-                     $("#img").attr('src','./img/bottle3.png');
+                     pupopTip('480px','240px','酒标需要对准客人哦','试着点一下瓶身');
                      bottleRight = true;
                   }else{
                     $(this).rotate({
@@ -171,13 +171,13 @@ body {
 
                     if (index >10 && index <14 ){
                       if(count < 2){
-                        pupopTip('400px','240px','斟酒成功','继续斟酒');
+                        pupopTip('480px','240px','斟酒成功','继续斟酒');
                         count ++;
                       }else{
-                        pupopTip('400px','240px','瓶中只剩一杯酒的量，是否询问客人开启新酒','是');
+                        pupopTip('480px','240px','瓶中只剩一杯酒的量，是否询问客人开启新酒','是');
                       }
                     }else if(index <24){
-                      pupopTip('400px','240px','斟酒失败','再来一次');
+                      pupopTip('480px','240px','斟酒失败','再来一次');
                     }
 
                     },800);
