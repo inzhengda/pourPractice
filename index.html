@@ -12,7 +12,7 @@
 			width: auto;
 			height: 400px;
 			margin: auto;
-      float:left
+      float:left;
 		}
 
     #glass {
@@ -24,6 +24,7 @@
  
 		img {
 			width: 100%;
+    
 		}
  
 		.didi {
@@ -76,7 +77,7 @@ body {
       if(index<15){
       $("#glass").attr('src',animationsImg[index++]);}
       else{
-        alert('挑战失败');
+        pupopTip('200px','120px','挑战失败','再来一次');
         clear();
     }}
     function remind2(){
@@ -112,7 +113,7 @@ body {
     $("#img").rotate({
             angle:0,
             bind:{
-                click:function(e){
+                touchstart:function(e){
                   e.preventDefault();
                   console.log('over')
                     $(this).rotate({
