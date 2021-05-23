@@ -4,29 +4,36 @@
 		<title>倒酒练习</title>
     <script type="text/javascript" src="./js/jquery.min.js"></script>
     <script type="text/javascript" src="./js/jquery.rotate.min.js"></script>
-    <!-- <audio id="music" autoplay="autoplay" loop="loop" preload="preload" src="img/bgm2.mp3"></audio> -->
+    <audio id="music" autoplay="autoplay" loop="loop" preload="preload" src="img/bgm2.mp3"></audio>
 
 	</head>
 	<style type="text/css">
 		#img {
-			width: auto;
+			width: 500px;
 			height: auto;
 			margin: auto;
       float:left;
 		}
 
     #glass {
-			width: auto;
+			width: 300px;
 			height: auto;
 			margin-top: 800px;
 		}
 
     #tip1 {
 			width: 130px;
-			height: auto;
+			height: 20px;
 			margin-top: 680px;
       margin-left: 0px;
 		}
+
+    #tip2 {
+			width: auto;
+			height: auto;
+			margin-top: 900px;
+		}
+ 
  
 		img {
 			width: 100%;
@@ -41,7 +48,7 @@
 			height: 20px;
 		}
     .didiImg {
-    padding-left: 150px;
+    padding-left: 200px;
     opacity:0;
 		}
  
@@ -72,10 +79,11 @@ body {
         <img  class = 'didiImg' id="didi5"src="./img/didi.png" visibility = 'hidden'/>
         <img  class = 'didiImg' id="didi6"src="./img/didi.png" visibility = 'hidden'/>
         </div>
-      
+   
       </div>
       <img class = 'didi' id="glass"src="./img/glass.png" />
-      <img id="img" src="./img/bottle1.png">
+      <!-- <h1 id="tip2" > 1/2 </h1> -->
+      <img id="img" src="./img/bottle1.png" >
       </div>
      
        
@@ -83,18 +91,18 @@ body {
 	</body>
 	<script type="text/javascript">
 
-    animationsImg = ['./img/glass.png','./img/glass1.png','./img/glass2.png','./img/glass3.png','./img/glass4.png','./img/glass5.png','./img/glass6.png','./img/glass7.png','./img/glass8.png','./img/glass9.png','./img/glass10.png','./img/glass11.png','./img/glass13.png','./img/glass14.png','./img/glass15.png']
+    animationsImg = ['./img/glass.png','./img/glass1.png','./img/glass3.png','./img/glass4.png','./img/glass5.png','./img/glass6.png','./img/glass7.png','./img/glass8.png','./img/glass15.png','./img/glass9.png','./img/glass10.png','./img/glass11.png','./img/glass13.png','./img/glass14.png','./img/glass16.png','./img/glass17.png','./img/glass18.png','./img/glass19.png','./img/glass20.png','./img/glass21.png','./img/glass22.png','./img/glass23.png','./img/glass24.png']
     let index =1;
     let count = 0;
     function remind(){
-      if(index<15){
+      if(index<24){
       $("#glass").attr('src',animationsImg[index++]);}
       else{
         pupopTip('400px','240px','挑战失败','再来一次');
         clear();
     }}
     function remind2(){
-      if(index<15 && $("#img").getRotateAngle()<-80){
+      if(index<24 && $("#img").getRotateAngle()<-80){
         if(index%2==1){
         $('#didi1').css('opacity','100'); 
         $('#didi3').css('opacity','100'); 
@@ -156,16 +164,14 @@ body {
 
                     setTimeout(function(){
 
-                    if (index >6 && index <9 ){
+                    if (index >10 && index <14 ){
                       if(count < 2){
                         pupopTip('400px','240px','斟酒成功','继续斟酒');
                         count ++;
                       }else{
                         pupopTip('400px','240px','瓶中只剩一杯酒','询问客人是否开启新酒');
                       }
-                     
-                     
-                    }else if(index <15){
+                    }else if(index <24){
                       pupopTip('400px','240px','斟酒失败','再来一次');
                     }
 
