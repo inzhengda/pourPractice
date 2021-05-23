@@ -4,7 +4,7 @@
 		<title>倒酒练习</title>
     <script type="text/javascript" src="./js/jquery.min.js"></script>
     <script type="text/javascript" src="./js/jquery.rotate.min.js"></script>
-    <audio id="music" autoplay="autoplay" loop="loop" preload="preload" src="img/bgm2.mp3"></audio>
+    <!-- <audio id="music" autoplay="autoplay" loop="loop" preload="preload" src="img/bgm2.mp3"></audio> -->
 
 	</head>
 	<style type="text/css">
@@ -19,7 +19,13 @@
 			width: auto;
 			height: auto;
 			margin-top: 800px;
-  
+		}
+
+    #tip1 {
+			width: 130px;
+			height: auto;
+			margin-top: 680px;
+      margin-left: 0px;
 		}
  
 		img {
@@ -28,34 +34,36 @@
 		}
  
 		.didi {
-      margin-top: 600px;
+      margin-top: 680px;
       display: flex;
       flex-direction: column;  
-      width: 40px;
-			height: 40px;
+      width: 20px;
+			height: 20px;
 		}
     .didiImg {
     padding-left: 150px;
-    padding-top: 5px;
     opacity:0;
 		}
  
  
 	
-    .display-flex {
+.display-flex {
   display: flex;
+}
+.display-flex-column {
+  display: flex;
+  flex-direction: column;  
 }
 
 body {
 	background-image: url("./img/sky.png");
 } 
-
-
 	</style>
- 
 	<body>
 		<div id="content" >
 			<div  class="display-flex" >
+        <div  class="display-flex" >
+        <h1 id="tip1" > 距离瓶口2厘米</h1>
         <div  class = 'didi'>
         <img  class = 'didiImg' id="didi1"src="./img/didi.png"  visibility = 'hidden'/>
         <img   class = 'didiImg'id="didi2"src="./img/didi.png" visibility = 'hidden' />
@@ -64,8 +72,12 @@ body {
         <img  class = 'didiImg' id="didi5"src="./img/didi.png" visibility = 'hidden'/>
         <img  class = 'didiImg' id="didi6"src="./img/didi.png" visibility = 'hidden'/>
         </div>
-        <img class = 'didi' id="glass"src="./img/glass.png" />
-        <img id="img" src="./img/bottle1.png"></div>
+      
+      </div>
+      <img class = 'didi' id="glass"src="./img/glass.png" />
+      <img id="img" src="./img/bottle1.png">
+      </div>
+     
        
 		</div>
 	</body>
@@ -73,6 +85,7 @@ body {
 
     animationsImg = ['./img/glass.png','./img/glass1.png','./img/glass2.png','./img/glass3.png','./img/glass4.png','./img/glass5.png','./img/glass6.png','./img/glass7.png','./img/glass8.png','./img/glass9.png','./img/glass10.png','./img/glass11.png','./img/glass13.png','./img/glass14.png','./img/glass15.png']
     let index =1;
+    let count = 0;
     function remind(){
       if(index<15){
       $("#glass").attr('src',animationsImg[index++]);}
@@ -81,7 +94,7 @@ body {
         clear();
     }}
     function remind2(){
-      if(index<15){
+      if(index<15 && $("#img").getRotateAngle()<-80){
         if(index%2==1){
         $('#didi1').css('opacity','100'); 
         $('#didi3').css('opacity','100'); 
@@ -110,39 +123,56 @@ body {
     }
     let interval;
     let interval2;
+    let bottleRight = false;
+
     $("#img").rotate({
             angle:0,
             bind:{
                 touchstart:function(e){
                   e.preventDefault();
+                  console.log(bottleRight)
+                  if(bottleRight){
                     $(this).rotate({
-                        animateTo:-70
+                        animateTo:-85
                     });
 
                   index = 0;
                   $("#glass").attr('src',animationsImg[index]);
                   interval = setInterval(function() { remind() }, 200);
                   interval2 = setInterval(function() { remind2() }, 200);
+                  console.log('touchstart')
+                  }
                 },
                 touchend:function(e){
                   e.preventDefault();
+                  if(!bottleRight){
+                     pupopTip('400px','240px','酒标需要对准客人','旋转酒瓶');
+                     $("#img").attr('src','./img/bottle3.png');
+                     bottleRight = true;
+                  }else{
                     $(this).rotate({
                         animateTo:0
                     });
 
                     setTimeout(function(){
 
-                    if (index >6 && index <9){
-                      pupopTip('400px','240px','挑战成功','再来一次');
- 
+                    if (index >6 && index <9 ){
+                      if(count < 2){
+                        pupopTip('400px','240px','斟酒成功','继续斟酒');
+                        count ++;
+                      }else{
+                        pupopTip('400px','240px','瓶中只剩一杯酒','询问客人是否开启新酒');
+                      }
+                     
+                     
                     }else if(index <15){
-                      pupopTip('400px','240px','挑战失败','再来一次');
+                      pupopTip('400px','240px','斟酒失败','再来一次');
                     }
 
                     },800);
-               
+                    console.log('touchend')
                     clear();
-            
+                  }
                 }
             }
         });
