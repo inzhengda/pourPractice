@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>倒酒练习</title>
+    <script type="text/javascript" src="../js/jquery.min.js"></script>
+    <script type="text/javascript" src="../js/jquery.rotate.min.js"></script>
+    <audio id="music" autoplay="autoplay" loop="loop" preload="preload" src="img/bgm2.mp3"></audio>
+
+	</head>
+	<style type="text/css">
+		#img {
+			width: auto;
+			height: 400px;
+			margin: auto;
+      float:left
+		}
+
+    #glass {
+			width: auto;
+			height: 200px;
+			margin-top: 500px;
+  
+		}
+ 
+		img {
+			width: 100%;
+		}
+ 
+		.didi {
+      margin-top: 300px;
+      display: flex;
+      flex-direction: column;  
+      width: 20px;
+			height: 20px;
+		}
+    .didiImg {
+    padding-left: 50px;
+    padding-top: 10px;
+    opacity:0;
+		}
+ 
+ 
+	
+    .display-flex {
+  display: flex;
+}
+
+body {
+	background-image: url("./img/sky.png");
+} 
+
+
+	</style>
+ 
+	<body>
+		<div id="content" >
+			<div  class="display-flex" >
+        <div  class = 'didi'>
+        <img  class = 'didiImg' id="didi1"src="./img/didi.png"  visibility = 'hidden'/>
+        <img   class = 'didiImg'id="didi2"src="./img/didi.png" visibility = 'hidden' />
+        <img   class = 'didiImg'id="didi3"src="./img/didi.png" visibility ='hidden'/>
+        <img   class = 'didiImg'id="didi4"src="./img/didi.png" visibility = 'hidden'/>
+        <img  class = 'didiImg' id="didi5"src="./img/didi.png" visibility = 'hidden'/>
+        <img  class = 'didiImg' id="didi6"src="./img/didi.png" visibility = 'hidden'/>
+        </div>
+        <img class = 'didi' id="glass"src="./img/glass.png" />
+        <img id="img" src="./img/bottle1.png"></div>
+       
+		</div>
+	</body>
+	<script type="text/javascript">
+
+    animationsImg = ['./img/glass.png','./img/glass1.png','./img/glass2.png','./img/glass3.png','./img/glass4.png','./img/glass5.png','./img/glass6.png','./img/glass7.png','./img/glass8.png','./img/glass9.png','./img/glass10.png','./img/glass11.png','./img/glass13.png','./img/glass14.png','./img/glass15.png']
+    let index =1;
+    function remind(){
+      if(index<15){
+      $("#glass").attr('src',animationsImg[index++]);}
+      else{
+        alert('挑战失败');
+        clear();
+    }}
+    function remind2(){
+      if(index<15){
+        if(index%2==1){
+        $('#didi1').css('opacity','100'); 
+        $('#didi3').css('opacity','100'); 
+        $('#didi5').css('opacity','100'); 
+        $('#didi2').css('opacity','0'); 
+        $('#didi4').css('opacity','0'); 
+        $('#didi6').css('opacity','0'); 
+        }else{
+        $('#didi1').css('opacity','0'); 
+        $('#didi3').css('opacity','0'); 
+        $('#didi5').css('opacity','0'); 
+        $('#didi2').css('opacity','100'); 
+        $('#didi4').css('opacity','100'); 
+        $('#didi6').css('opacity','100'); 
+        }
+     
+      }else{
+        $('#didi1').css('opacity','0'); 
+        $('#didi3').css('opacity','0'); 
+        $('#didi5').css('opacity','0'); 
+        $('#didi2').css('opacity','0'); 
+        $('#didi4').css('opacity','0'); 
+        $('#didi6').css('opacity','0'); 
+      }
+       
+    }
+    let interval;
+    let interval2;
+    $("#img").rotate({
+            angle:0,
+            bind:{
+                mouseover:function(){
+                    $(this).rotate({
+                        animateTo:-70
+                    });
+
+                  index = 0;
+                  $("#glass").attr('src',animationsImg[index]);
+                  interval = setInterval(function() { remind() }, 200);
+                  interval2 = setInterval(function() { remind2() }, 200);
+                },
+                mouseout:function(){
+                    $(this).rotate({
+                        animateTo:0
+                    });
+
+                    setTimeout(function(){
+
+                    if (index >6 && index <9){
+                      pupopTip('200px','120px','挑战成功','再来一次');
+ 
+                    }else if(index <15){
+                      pupopTip('200px','120px','挑战失败','再来一次');
+                    }
+
+                    },800);
+               
+                    clear();
+            
+                }
+            }
+        });
+
+    function clear(){
+      clearInterval(interval);
+      clearInterval(interval2);
+      $('#didi1').css('opacity','0'); 
+      $('#didi3').css('opacity','0'); 
+      $('#didi5').css('opacity','0'); 
+      $('#didi2').css('opacity','0'); 
+      $('#didi4').css('opacity','0'); 
+      $('#didi6').css('opacity','0'); 
+    }
+    function pupopTip(pupW,pupH,pupText,btnText) {
+            var popup = $('<div  class="pupopBox" style="display:none;position: fixed;top:0;left: 0;width: 100%;height: 100%;background-color:rgba(0,0,0,0.6); "><div  class="pupopContent" style="position:absolute;top:50%;left:50%;transform: translate(-50%,-50%);display:flex;flex-direction:column;justify-content:center;align-items:center;width:'+pupW+';height: '+pupH+';background-color: #fff;border-radius: 10px;padding: 20px">' +
+             
+                '<div style="font-size: 14px;">'+pupText+' </div>' +
+                 '</div></div>');
+            $("body").append(popup);
+            if(btnText){
+                $('.pupopContent').append($('<a style="display:; background-color:rgba(0,0,0,0.9);border-radius: 5px;margin-top:10px;padding:5px 20px;color: #fff; text-decoration: none;font-size: 14px; " id="pup_btn" href="javascript:;">'+btnText+'</a>'));
+
+            }
+            $('.pupopBox').fadeIn();
+            $('body').on('click','#pup_btn',function() {
+                $('.pupopBox').fadeOut(500,function () {$(this).remove()})
+            })
+        }
+	</script>
+</html>
