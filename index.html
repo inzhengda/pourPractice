@@ -99,7 +99,7 @@ body {
       if(index<24){
       $("#glass").attr('src',animationsImg[index++]);}
       else{
-        pupopTip('480px','240px','挑战失败','再来一次');
+        pupopTip('480px','240px','斟酒失败','再来一次',null);
         clear();
     }}
     let music = document.getElementById('music');
@@ -176,7 +176,7 @@ body {
                   e.preventDefault();
                   audio.pause();
                   if(bottleRight===0){
-                     pupopTip('480px','240px','酒标需要对准客人哦','试着点一下瓶身');
+                     pupopTip('480px','240px','酒标需要对准客人哦','试着点一下瓶身',null);
                      bottleRight = 1;
                   }else if(bottleRight===3){
                     $(this).rotate({
@@ -187,10 +187,11 @@ body {
 
                     if (index >10 && index <14 ){
                       if(count < 2){
-                        pupopTip('480px','240px','斟酒成功','继续斟酒');
+                        pupopTip('480px','240px','斟酒成功','继续斟酒',null);
                         count ++;
                       }else{
-                        pupopTip('480px','240px','瓶中只剩一杯酒的量，是否询问客人开启新酒','是');
+                        pupopTip('480px','240px','瓶中只剩一杯酒的量，是否询问客人开启新酒','是','否');
+                        count = 0;
                       }
                     }else if(index <24){
                       pupopTip('480px','240px','斟酒失败','再来一次');
@@ -214,19 +215,27 @@ body {
       $('#didi4').css('opacity','0'); 
       $('#didi6').css('opacity','0'); 
     }
-    function pupopTip(pupW,pupH,pupText,btnText) {
-            var popup = $('<div  class="pupopBox" style="display:none;position: fixed;top:0;left: 0;width: 100%;height: 100%;background-color:rgba(0,0,0,0.6); "><div  class="pupopContent" style="position:absolute;top:50%;left:50%;transform: translate(-50%,-50%);display:flex;flex-direction:column;justify-content:center;align-items:center;width:'+pupW+';height: '+pupH+';background-color: #fff;border-radius: 10px;padding: 20px">' +
+    function pupopTip(pupW,pupH,pupText,btnText,btnText2) {
+            var popup = $('<div  class="pupopBox" style="display:none;position: fixed;top:0;left: 0;width: 100%;height: 100%;background-color:rgba(0,0,0,0.6); "><div  style="position:absolute;top:50%;left:50%;transform: translate(-50%,-50%);display:flex;flex-direction:column;justify-content:center;align-items:center;width:'+pupW+';height: '+pupH+';background-color: #fff;border-radius: 10px;padding: 20px">' +
              
                 '<div style="font-size: 48px;">'+pupText+' </div>' +
+                '<div class="pupopContent" display:flex;flex-direction:column;> </div>' +
                  '</div></div>');
             $("body").append(popup);
             if(btnText){
-                $('.pupopContent').append($('<a style="display:; background-color:rgba(0,0,0,0.9);border-radius: 5px;margin-top:10px;padding:5px 20px;color: #fff; text-decoration: none;font-size: 48px; " id="pup_btn" href="javascript:;">'+btnText+'</a>'));
-
+                $('.pupopContent').append($('<a style="display:; background-color:rgba(0,0,0,0.9);border-radius: 5px;margin:10px;padding:5px 20px;color: #fff; text-decoration: none;font-size: 48px; " id="pup_btn" href="javascript:;">'+btnText+'</a>'));
+            }
+            if(btnText2){
+                $('.pupopContent').append($('<a style="display:; background-color:rgba(0,0,0,0.9);border-radius: 5px;margin:10px;padding:5px 20px;color: #fff; text-decoration: none;font-size: 48px; " id="pup_btn2" href="javascript:;">'+btnText2+'</a>'));
             }
             $('.pupopBox').fadeIn();
             $('body').on('click','#pup_btn',function() {
                 $('.pupopBox').fadeOut(500,function () {$(this).remove()})
+            })
+            $('body').on('click','#pup_btn2',function() {
+                $('.pupopBox').fadeOut(500,function () {$(this).remove()})
+                pupopTip('480px','240px','游戏结束','重新开始', null);
+
             })
         }
 	</script>
