@@ -99,7 +99,7 @@ body {
       if(index<24){
       $("#glass").attr('src',animationsImg[index++]);}
       else{
-        pupopTip('480px','240px','斟酒失败','再来一次',null);
+        pupopTip('480px','240px','斟酒失败',null,'再来一次');
         clear();
     }}
     let music = document.getElementById('music');
@@ -176,7 +176,7 @@ body {
                   e.preventDefault();
                   audio.pause();
                   if(bottleRight===0){
-                     pupopTip('480px','240px','酒标需要对准客人哦','试着点一下瓶身',null);
+                     pupopTip('480px','240px','酒标需要对准客人哦',null,'试着点一下瓶身');
                      bottleRight = 1;
                   }else if(bottleRight===3){
                     $(this).rotate({
@@ -187,14 +187,13 @@ body {
 
                     if (index >10 && index <14 ){
                       if(count < 2){
-                        pupopTip('480px','240px','斟酒成功','继续斟酒',null);
+                        pupopTip('480px','240px','斟酒成功',null,'继续斟酒');
                         count ++;
                       }else{
                         pupopTip('480px','240px','瓶中只剩一杯酒的量，是否询问客人开启新酒','是','否');
-                        count = 0;
                       }
                     }else if(index <24){
-                      pupopTip('480px','240px','斟酒失败','再来一次');
+                      pupopTip('480px','240px','斟酒失败',null,'再来一次');
                     }
 
                     },800);
@@ -231,11 +230,11 @@ body {
             $('.pupopBox').fadeIn();
             $('body').on('click','#pup_btn',function() {
                 $('.pupopBox').fadeOut(500,function () {$(this).remove()})
+                pupopTip('480px','240px','通过斟酒练习',null,'重新开始');
+                count = 0;
             })
             $('body').on('click','#pup_btn2',function() {
                 $('.pupopBox').fadeOut(500,function () {$(this).remove()})
-                pupopTip('480px','240px','游戏结束','重新开始', null);
-
             })
         }
 	</script>
