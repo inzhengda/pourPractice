@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>倒酒练习</title>
+		<title>斟酒游戏</title>
     <script type="text/javascript" src="./js/jquery.min.js"></script>
     <script type="text/javascript" src="./js/jquery.rotate.min.js"></script>
     <audio id="music" autoplay="autoplay" loop="loop" preload="preload" src="img/bgm2.mp3"></audio>
@@ -24,9 +24,9 @@
 
     #tip1 {
 			width: 180px;
-			height: auto;
-			margin-top: 680px;
-      margin-left: 0px;
+			height: 130px;
+			margin-top: 660px;
+      margin-left: 20px;
 		}
 
     #tip2 {
@@ -35,7 +35,7 @@
 			margin-top: 900px;
 		}
  
- 
+    h1 { background-color:#ffffff }
 		img {
 			width: 100%;
     
@@ -102,7 +102,15 @@ body {
         pupopTip('480px','240px','挑战失败','再来一次');
         clear();
     }}
+    let music = document.getElementById('music');
+    music.play();
+    document.addEventListener("WeixinJSBridgeReady", function () {
+    music.play();
+    }, false);
+
+
     let audio = document.getElementById("shuidi");
+    let bottleImg = document.getElementById("img");
     function remind2(){
       if(index<24 && $("#img").getRotateAngle()<-80){
         audio.play();
@@ -135,7 +143,7 @@ body {
     }
     let interval;
     let interval2;
-    let bottleRight = false;
+    let bottleRight = 0;
 
     $("#img").rotate({
             angle:0,
@@ -143,8 +151,11 @@ body {
                 touchstart:function(e){
                   e.preventDefault();
                   console.log(bottleRight)
-                  if(bottleRight){
-                    $("#img").attr('src','./img/bottle3.png');
+                  if(bottleRight===2){
+                    bottleRight=3;
+                  }
+                  if(bottleRight===3){
+                 
                     $(this).rotate({
                         animateTo:-85
                     });
@@ -155,14 +166,19 @@ body {
                   interval2 = setInterval(function() { remind2() }, 200);
                   console.log('touchstart')
                   }
+               
+                  if(bottleRight===1){
+                    bottleRight=2;
+                    $("#img").attr('src','./img/bottle3.png');
+                  }
                 },
                 touchend:function(e){
                   e.preventDefault();
                   audio.pause();
-                  if(!bottleRight){
+                  if(bottleRight===0){
                      pupopTip('480px','240px','酒标需要对准客人哦','试着点一下瓶身');
-                     bottleRight = true;
-                  }else{
+                     bottleRight = 1;
+                  }else if(bottleRight===3){
                     $(this).rotate({
                         animateTo:0
                     });
