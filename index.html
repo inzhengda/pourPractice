@@ -185,17 +185,17 @@ body {
 
                     setTimeout(function(){
 
-                    if (index >10 && index <14 ){
+                   
                       if(count < 2){
+                        if (index >10 && index <14 ){
                         pupopTip('480px','240px','斟酒成功',null,'继续斟酒');
                         count ++;
-                      }else{
+                          }else if(index <24){
+                          pupopTip('480px','240px','斟酒失败',null,'再来一次');
+                        }
+                        }else{
                         pupopTip('480px','240px','瓶中只剩一杯酒的量，是否询问客人开启新酒','是','否');
                       }
-                    }else if(index <24){
-                      pupopTip('480px','240px','斟酒失败',null,'再来一次');
-                    }
-
                     },800);
                     console.log('touchend')
                     clear();
@@ -222,16 +222,18 @@ body {
                  '</div></div>');
             $("body").append(popup);
             if(btnText){
-                $('.pupopContent').append($('<a style="display:; background-color:rgba(0,0,0,0.9);border-radius: 5px;margin:10px;padding:5px 20px;color: #fff; text-decoration: none;font-size: 48px; " id="pup_btn" href="javascript:;">'+btnText+'</a>'));
+                $('.pupopContent').append($('<a style="display:; background-color:rgba(0,0,0,0.9);border-radius: 5px;margin:20px;padding:5px 20px;color: #fff; text-decoration: none;font-size: 48px; " id="pup_btn" href="javascript:;">'+btnText+'</a>'));
             }
             if(btnText2){
-                $('.pupopContent').append($('<a style="display:; background-color:rgba(0,0,0,0.9);border-radius: 5px;margin:10px;padding:5px 20px;color: #fff; text-decoration: none;font-size: 48px; " id="pup_btn2" href="javascript:;">'+btnText2+'</a>'));
+                $('.pupopContent').append($('<a style="display:; background-color:rgba(0,0,0,0.9);border-radius: 5px;margin:20px;padding:5px 20px;color: #fff; text-decoration: none;font-size: 48px; " id="pup_btn2" href="javascript:;">'+btnText2+'</a>'));
             }
             $('.pupopBox').fadeIn();
             $('body').on('click','#pup_btn',function() {
                 $('.pupopBox').fadeOut(500,function () {$(this).remove()})
-                pupopTip('480px','240px','通过斟酒练习',null,'重新开始');
+                pupopTip('480px','240px','顺利通过斟酒游戏',null,'重新开始');
                 count = 0;
+                bottleRight = 0;
+                $("#img").attr('src','./img/bottle1.png');
             })
             $('body').on('click','#pup_btn2',function() {
                 $('.pupopBox').fadeOut(500,function () {$(this).remove()})
