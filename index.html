@@ -151,6 +151,9 @@ body {
                 touchstart:function(e){
                   e.preventDefault();
                   console.log(bottleRight)
+                  if(music.paused){
+                    music.play();
+                  }
                   if(bottleRight===2){
                     bottleRight=3;
                   }
